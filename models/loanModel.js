@@ -1,7 +1,7 @@
 const db = require("../database");
 
 const getAllLoans = (callback) => {
-  db.all("SELECT * FROM loans", [], (err, rows) => {
+  db.all("SELECT * FROM loans ORDER BY createdAt DESC", [], (err, rows) => {
     if (err) {
       console.error("Error fetching all loans:", err);
     } else {
@@ -12,14 +12,18 @@ const getAllLoans = (callback) => {
 };
 
 const getLoansByUserId = (userId, callback) => {
-  db.all("SELECT * FROM loans WHERE userId = ?", [userId], (err, rows) => {
-    if (err) {
-      console.error(`Error fetching loans for user ${userId}:`, err);
-    } else {
-      console.log(`Loans fetched for user ${userId}:`, rows); // Log loans for user
+  db.all(
+    "SELECT * FROM loans WHERE userId = ? ORDER BY createdAt DESC",
+    [userId],
+    (err, rows) => {
+      if (err) {
+        console.error(`Error fetching loans for user ${userId}:`, err);
+      } else {
+        console.log(`Loans fetched for user ${userId}:`, rows); // Log loans for user
+      }
+      callback(err, rows);
     }
-    callback(err, rows);
-  });
+  );
 };
 
 const addLoan = (loan, callback) => {
@@ -30,10 +34,22 @@ const addLoan = (loan, callback) => {
     function (err) {
       if (err) {
         console.error("Error adding loan:", err);
+        callback(err);
       } else {
-        console.log("Loan added:", { id: this.lastID, ...loan }); // Log added loan
+        db.get(
+          "SELECT * FROM loans WHERE id = ?",
+          [this.lastID],
+          (err, row) => {
+            if (err) {
+              console.error("Error fetching new loan:", err);
+              callback(err);
+            } else {
+              console.log("Loan added:", row); // Log added loan
+              callback(null, row);
+            }
+          }
+        );
       }
-      callback(err, { id: this.lastID, ...loan });
     }
   );
 };

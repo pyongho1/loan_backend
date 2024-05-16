@@ -29,7 +29,8 @@ db.serialize(() => {
       userId TEXT,
       fullName TEXT,
       loanAmount REAL,
-      status TEXT
+      status TEXT,
+      createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `,
     (err) => {
