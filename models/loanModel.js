@@ -6,6 +6,12 @@ const getAllLoans = (callback) => {
   });
 };
 
+const getLoansByUserId = (userId, callback) => {
+  db.all("SELECT * FROM loans WHERE userId = ?", [userId], (err, rows) => {
+    callback(err, rows);
+  });
+};
+
 const addLoan = (loan, callback) => {
   const { fullName, loanAmount, status } = loan;
   db.run(
@@ -29,6 +35,7 @@ const updateLoanStatus = (id, status, callback) => {
 
 module.exports = {
   getAllLoans,
+  getLoansByUserId,
   addLoan,
   updateLoanStatus,
 };

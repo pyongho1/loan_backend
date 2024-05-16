@@ -10,6 +10,17 @@ const getLoans = (req, res) => {
   });
 };
 
+const getLoansByUser = (req, res) => {
+  const { userId } = req.params;
+  LoanModel.getLoansByUserId(userId, (err, loans) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(loans);
+  });
+};
+
 const createLoan = (req, res) => {
   const newLoan = {
     fullName: req.body.fullName,
@@ -41,6 +52,7 @@ const changeLoanStatus = (req, res) => {
 
 module.exports = {
   getLoans,
+  getLoansByUser,
   createLoan,
   changeLoanStatus,
 };
