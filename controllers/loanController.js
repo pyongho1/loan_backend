@@ -15,14 +15,16 @@ const getLoansByUser = (req, res) => {
   LoanModel.getLoansByUserId(userId, (err, loans) => {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+    } else {
+      console.log(`Loans fetched for user ${userId}:`, loans); // Log fetched loans
+      res.json(loans);
     }
-    res.json(loans);
   });
 };
 
 const createLoan = (req, res) => {
   const newLoan = {
+    userId: req.body.userId,
     fullName: req.body.fullName,
     loanAmount: req.body.loanAmount,
     status: "waiting decision",
@@ -31,9 +33,10 @@ const createLoan = (req, res) => {
   LoanModel.addLoan(newLoan, (err, loan) => {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+    } else {
+      console.log("Loan added:", loan); // Log added loan
+      res.status(201).json(loan);
     }
-    res.status(201).json(loan);
   });
 };
 
