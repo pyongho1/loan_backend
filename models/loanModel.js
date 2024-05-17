@@ -78,10 +78,21 @@ const updateLoanStatus = (id, status, callback) => {
   );
 };
 
+const deleteLoan = (id, callback) => {
+  db.run("DELETE FROM loans WHERE id = ?", [id], function (err) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null);
+    }
+  });
+};
+
 module.exports = {
   getAllLoans,
   getLoansByUserId,
   addLoan,
   updateLoanAmount,
   updateLoanStatus,
+  deleteLoan,
 };

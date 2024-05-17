@@ -66,10 +66,23 @@ const changeLoanAmount = (req, res) => {
   });
 };
 
+const deleteLoan = (req, res) => {
+  const { id } = req.params;
+
+  LoanModel.deleteLoan(id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(200).json({ message: "Loan deleted successfully" });
+  });
+};
+
 module.exports = {
   getLoans,
   getLoansByUser,
   createLoan,
   changeLoanStatus,
   changeLoanAmount,
+  deleteLoan,
 };
