@@ -6,5 +6,6 @@ router.get("/loans", loanController.getLoans);
 router.get("/loans/:userId", loanController.getLoansByUser);
 router.post("/loans", loanController.createLoan);
 router.put("/loans/:id/status", loanController.changeLoanStatus);
+router.put("/loans/:id/amount", loanController.changeLoanAmount);
 
 module.exports = router;

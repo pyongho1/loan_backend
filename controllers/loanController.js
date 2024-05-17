@@ -53,9 +53,23 @@ const changeLoanStatus = (req, res) => {
   });
 };
 
+const changeLoanAmount = (req, res) => {
+  const { id } = req.params;
+  const { loanAmount } = req.body;
+
+  LoanModel.updateLoanAmount(id, loanAmount, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(200).json({ id, loanAmount });
+  });
+};
+
 module.exports = {
   getLoans,
   getLoansByUser,
   createLoan,
   changeLoanStatus,
+  changeLoanAmount,
 };

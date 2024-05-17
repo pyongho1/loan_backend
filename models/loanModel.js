@@ -54,6 +54,20 @@ const addLoan = (loan, callback) => {
   );
 };
 
+const updateLoanAmount = (id, loanAmount, callback) => {
+  db.run(
+    "UPDATE loans SET loanAmount = ? WHERE id = ?",
+    [loanAmount, id],
+    function (err) {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, { id, loanAmount });
+      }
+    }
+  );
+};
+
 const updateLoanStatus = (id, status, callback) => {
   db.run(
     "UPDATE loans SET status = ? WHERE id = ?",
@@ -68,5 +82,6 @@ module.exports = {
   getAllLoans,
   getLoansByUserId,
   addLoan,
+  updateLoanAmount,
   updateLoanStatus,
 };
