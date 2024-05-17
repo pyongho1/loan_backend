@@ -5,7 +5,7 @@ const getAllLoans = (callback) => {
     if (err) {
       console.error("Error fetching all loans:", err);
     } else {
-      console.log("All loans:", rows); // Log all loans
+      console.log("All loans:", rows);
     }
     callback(err, rows);
   });
@@ -19,7 +19,7 @@ const getLoansByUserId = (userId, callback) => {
       if (err) {
         console.error(`Error fetching loans for user ${userId}:`, err);
       } else {
-        console.log(`Loans fetched for user ${userId}:`, rows); // Log loans for user
+        console.log(`Loans fetched for user ${userId}:`, rows);
       }
       callback(err, rows);
     }
@@ -44,7 +44,7 @@ const addLoan = (loan, callback) => {
               console.error("Error fetching new loan:", err);
               callback(err);
             } else {
-              console.log("Loan added:", row); // Log added loan
+              console.log("Loan added:", row);
               callback(null, row);
             }
           }

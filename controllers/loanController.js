@@ -16,7 +16,7 @@ const getLoansByUser = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      console.log(`Loans fetched for user ${userId}:`, loans); // Log fetched loans
+      console.log(`Loans fetched for user ${userId}:`, loans);
       res.json(loans);
     }
   });
@@ -34,7 +34,7 @@ const createLoan = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      console.log("Loan added:", loan); // Log added loan
+      console.log("Loan added:", loan);
       res.status(201).json(loan);
     }
   });

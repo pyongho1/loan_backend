@@ -20,7 +20,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-// Create the loans table if it doesn't exist
+// Create the loans table
 db.serialize(() => {
   db.run(
     `
